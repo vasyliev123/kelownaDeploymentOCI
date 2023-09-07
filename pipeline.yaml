@@ -10,6 +10,7 @@ pipeline {
     stage('build') {
       steps {
         sh 'tar -zcvf public.tar.gz public'
+        print "tar file created"
       }
     }
     stage("OCI Upload Artifact") {
