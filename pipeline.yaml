@@ -14,39 +14,39 @@ pipeline {
         sh 'echo `pwd`'
         sh 'ls -alrt'
       }
-    }
-    stage('build') {
-      steps {
-        sh 'tar -zcvf public.tar.gz public'
-        print "tar file created"
-      }
-    }
-    stage("OCI Upload Artifact") {
-        steps {
-          OCIUploadArtifact(credentialsId: '04f742bd-6439-45f1-b8a5-d00c9ddafaa0',
-          uploadArtifactDetailsList: [[artifactPath: 'public.tar.gz',
-          repositoryId: 'ocid1.artifactrepository.oc1.ca-montreal-1.0.amaaaaaabpz627qaxv5tx6zorink4he5qe7ejyrwixmpudgkkaxfqqmb2m4q',
-          repositoryType: 'GENERIC',
-          sourcePath: 'public.tar.gz',
-          version: "1.$BUILD_NUMBER"],
-          [artifactPath: 'deployment_spec.yaml',
-          repositoryId: 'ocid1.artifactrepository.oc1.ca-montreal-1.0.amaaaaaabpz627qaxv5tx6zorink4he5qe7ejyrwixmpudgkkaxfqqmb2m4q',
-          repositoryType: 'GENERIC',
-          sourcePath: 'deployment_spec.yaml',
-          version: "1.$BUILD_NUMBER"]
-          ])
-        }
-    }
-    stage('Trigger Deployment') {
-        steps {
-          OCIDeployment(argumentVal: JsonOutput.toJson(args_map),
-          credentialsId: '04f742bd-6439-45f1-b8a5-d00c9ddafaa0',
-          displayName: "testDeployment${BUILD_NUMBER}",
-          endpoint: 'https://devops.ca-toronto-1.oci.oraclecloud.com',
-          pipelineId: 'ocid1.devopsdeploypipeline.oc1.ca-montreal-1.amaaaaaabpz627qa72vucdegbcvjgvy265vfregdcmp4cxkyogoyzzfp2ggq',
-          pollingConfig: [timeoutSeconds: 600, "pollingIntervalSeconds" : 5], executionMode: 'SYNC'
-          )
-      }
-    }  
+    # }
+    # stage('build') {
+    #   steps {
+    #     sh 'tar -zcvf public.tar.gz public'
+    #     print "tar file created"
+    #   }
+    # }
+    # stage("OCI Upload Artifact") {
+    #     steps {
+    #       OCIUploadArtifact(credentialsId: '04f742bd-6439-45f1-b8a5-d00c9ddafaa0',
+    #       uploadArtifactDetailsList: [[artifactPath: 'public.tar.gz',
+    #       repositoryId: 'ocid1.artifactrepository.oc1.ca-montreal-1.0.amaaaaaabpz627qaxv5tx6zorink4he5qe7ejyrwixmpudgkkaxfqqmb2m4q',
+    #       repositoryType: 'GENERIC',
+    #       sourcePath: 'public.tar.gz',
+    #       version: "1.$BUILD_NUMBER"],
+    #       [artifactPath: 'deployment_spec.yaml',
+    #       repositoryId: 'ocid1.artifactrepository.oc1.ca-montreal-1.0.amaaaaaabpz627qaxv5tx6zorink4he5qe7ejyrwixmpudgkkaxfqqmb2m4q',
+    #       repositoryType: 'GENERIC',
+    #       sourcePath: 'deployment_spec.yaml',
+    #       version: "1.$BUILD_NUMBER"]
+    #       ])
+    #     }
+    # }
+    # stage('Trigger Deployment') {
+    #     steps {
+    #       OCIDeployment(argumentVal: JsonOutput.toJson(args_map),
+    #       credentialsId: '04f742bd-6439-45f1-b8a5-d00c9ddafaa0',
+    #       displayName: "testDeployment${BUILD_NUMBER}",
+    #       endpoint: 'https://devops.ca-toronto-1.oci.oraclecloud.com',
+    #       pipelineId: 'ocid1.devopsdeploypipeline.oc1.ca-montreal-1.amaaaaaabpz627qa72vucdegbcvjgvy265vfregdcmp4cxkyogoyzzfp2ggq',
+    #       pollingConfig: [timeoutSeconds: 600, "pollingIntervalSeconds" : 5], executionMode: 'SYNC'
+    #       )
+    #   }
+    # }  
   }
 }
