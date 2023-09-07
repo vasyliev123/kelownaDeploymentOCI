@@ -7,10 +7,16 @@ print "version: "+version
 pipeline {
   agent any
   stages {
+    stage('checkout') {
+      steps {
+        echo 'Hello World'
+        checkout([$class:'GitSCM', branches:[[name: '*/master']], extensions:[], userRemoteConfigs:[[url: 'https://github.com/vasyliev123/kelownaDeploymentOCI']]])
+        sh 'echo `pwd`'
+        sh 'ls -alrt'
+      }
+    }
     stage('build') {
       steps {
-        sh 'cp deployment_spec.yaml public/'
-        sh 'cd public'
         sh 'tar -zcvf public.tar.gz public'
         print "tar file created"
       }
