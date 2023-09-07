@@ -9,6 +9,8 @@ pipeline {
   stages {
     stage('build') {
       steps {
+        sh 'cp deployment_spec.yaml public/'
+        sh 'cd public'
         sh 'tar -zcvf public.tar.gz public'
         print "tar file created"
       }
