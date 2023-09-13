@@ -17,12 +17,12 @@ pipeline {
           OCIUploadArtifact(credentialsId: 'OCI-CREDS',
           uploadArtifactDetailsList: [[artifactPath: 'public.tar.gz',
           repositoryId: 'ocid1.devopsrepository.oc1.ca-montreal-1.amaaaaaabpz627qadcpypezl2gnlgvrum2gxpgd6pjz7quwr45oukuuwuayq',
-          repositoryType: 'HOSTED',
+          repositoryType: 'GENERIC',
           sourcePath: 'public.tar.gz',
           version: "1.$BUILD_NUMBER"],
           [artifactPath: 'deployment_spec.yaml',
           repositoryId: 'ocid1.devopsrepository.oc1.ca-montreal-1.amaaaaaabpz627qadcpypezl2gnlgvrum2gxpgd6pjz7quwr45oukuuwuayq',
-          repositoryType: 'HOSTED',
+          repositoryType: 'GENERIC',
           sourcePath: 'deployment_spec.yaml',
           version: "1.$BUILD_NUMBER"]
           ])
