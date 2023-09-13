@@ -16,13 +16,13 @@ pipeline {
         steps {
           OCIUploadArtifact(credentialsId: 'OCI-CREDS',
           uploadArtifactDetailsList: [[artifactPath: 'public.tar.gz',
-          repositoryId: 'ocid1.artifactrepository.oc1.ca-montreal-1.0.amaaaaaabpz627qaxv5tx6zorink4he5qe7ejyrwixmpudgkkaxfqqmb2m4q',
-          repositoryType: 'GENERIC',
+          repositoryId: 'ocid1.devopsrepository.oc1.ca-montreal-1.amaaaaaabpz627qadcpypezl2gnlgvrum2gxpgd6pjz7quwr45oukuuwuayq',
+          repositoryType: 'HOSTED',
           sourcePath: 'public.tar.gz',
           version: "1.$BUILD_NUMBER"],
           [artifactPath: 'deployment_spec.yaml',
-          repositoryId: 'ocid1.artifactrepository.oc1.ca-montreal-1.0.amaaaaaabpz627qaxv5tx6zorink4he5qe7ejyrwixmpudgkkaxfqqmb2m4q',
-          repositoryType: 'GENERIC',
+          repositoryId: 'ocid1.devopsrepository.oc1.ca-montreal-1.amaaaaaabpz627qadcpypezl2gnlgvrum2gxpgd6pjz7quwr45oukuuwuayq',
+          repositoryType: 'HOSTED',
           sourcePath: 'deployment_spec.yaml',
           version: "1.$BUILD_NUMBER"]
           ])
