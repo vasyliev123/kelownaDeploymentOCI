@@ -15,7 +15,7 @@ steps:
     runAs: root
     timeoutInSeconds: 300
   - stepType: Command 
-    name: HTTPD_Install
+    name: HHTPD_Install
     command: yum install httpd -y
     runAs: root
     timeoutInSeconds: 300
@@ -29,7 +29,7 @@ steps:
     command: cp -a /tmp/site/public/. /var/www/html/
     runAs: root
     timeoutInSeconds: 300
-  - stepType: Command 
+  - stepType: Command
     name: OpenFirewallPort
     command: firewall-cmd --zone=public --permanent --add-port=80/tcp
     runAs: root
