@@ -1,46 +1,51 @@
-version: 1.0 
-component: deployment 
+version: 1.0
+component: deployment
 runAs: root
-env: 
-    variables:        
-timeoutInSeconds:  
-files:  
+env:
+  variables: {}
+timeoutInSeconds:  # Add your desired timeout value here
+files:
   - source: /
-    destination: /tmp/site/                              
-steps:                              
-# This section is to define the scripts that each step runs on the instance after file copy.
-  - stepType: Command 
+    destination: /tmp/site/
+steps:
+  - stepType: Command
     name: YumUPDATE
     command: yum update -y
     runAs: root
     timeoutInSeconds: 300
-  - stepType: Command 
+
+  - stepType: Command
     name: HHTPD_Install
     command: yum install httpd -y
     runAs: root
     timeoutInSeconds: 300
-  - stepType: Command 
+
+  - stepType: Command
     name: HTTPD_Start
     command: service httpd start
     runAs: root
     timeoutInSeconds: 300
-  - stepType: Command 
+
+  - stepType: Command
     name: CopyFiles
     command: cp -a /tmp/site/public/. /var/www/html/
     runAs: root
     timeoutInSeconds: 300
+
   - stepType: Command
     name: OpenFirewallPort
     command: firewall-cmd --zone=public --permanent --add-port=80/tcp
     runAs: root
     timeoutInSeconds: 300
-  - stepType: Command 
+
+  - stepType: Command
     name: ReloadFirewall
     command: firewall-cmd --reload
     runAs: root
     timeoutInSeconds: 300
-  - stepType: Command 
-    name: CopyFiles
+
+  - stepType: Command
+    name: SetPermissions
     command: chmod -R u=rwx,go=rx /var/www/html
     runAs: root
     timeoutInSeconds: 300
