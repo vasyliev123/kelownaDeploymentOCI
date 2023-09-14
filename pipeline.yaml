@@ -1,7 +1,7 @@
 import groovy.json.*
 
-def args_map = [version: "1.${BUILD_NUMBER}"]
-def version = "${BUILD_NUMBER}"
+def args_map = [version: "12"]
+def version = "123"
 
 pipeline {
     agent any
@@ -41,6 +41,20 @@ pipeline {
             }
         }
 
-        
+        stage('Trigger Deployment') {
+            steps {
+                script {
+                    OCIDeployment(
+                        argumentVal: JsonOutput.toJson(args_map),
+                        credentialsId: 'OCI-CREDS',
+                        displayName: "testDeployment${BUILD_NUMBER}",
+                        endpoint: 'https://devops.ca-montreal-1.oci.oraclecloud.com',
+                        pipelineId: 'ocid1.devopsdeploypipeline.oc1.ca-montreal-1.amaaaaaabpz627qa72vucdegbcvjgvy265vfregdcmp4cxkyogoyzzfp2ggq',
+                        pollingConfig: [timeoutSeconds: 600, pollingIntervalSeconds: 5],
+                        executionMode: 'SYNC'
+                    )
+                }
+            }
+        }
     }
 }
